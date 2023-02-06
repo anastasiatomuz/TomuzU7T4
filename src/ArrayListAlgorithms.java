@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
 public class ArrayListAlgorithms {
     /**
@@ -303,7 +305,28 @@ public class ArrayListAlgorithms {
      *  @param numList  numList of ints
      */
     public static ArrayList<Integer> modes(int[] numList)
-    { /* implement this method! */ }
+    {
+        ArrayList<Integer[]> set = new ArrayList<>();
+        ArrayList<Integer> copy = new ArrayList<>();
+        for (int num: numList){
+            copy.add(num);
+        }
+
+
+        for (int i = 0; i < copy.size(); i ++){
+            int currentNum = copy.get(0);
+            int timesAppeared = 0;
+            int[] modeKey = new int[2];
+            modeKey[]
+            while (copy.contains(i)){
+                timesAppeared ++;
+                copy.remove(currentNum);
+            }
+           set.add()
+            i -= timesAppeared;
+        }
+
+    }
 
 
 
