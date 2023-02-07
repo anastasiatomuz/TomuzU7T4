@@ -11,6 +11,7 @@ public class Runner {
         ArrayList<Integer> modes2 = ArrayListAlgorithms.modes(intList19);
         System.out.println(modes2);
 
+
         int[] intList20 = {1, 2, 1, 2, 4, 1, 2, 4, 1, 1, 3};
         ArrayList<Integer> modes3 = ArrayListAlgorithms.modes(intList20);
         System.out.println(modes3);

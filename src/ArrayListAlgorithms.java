@@ -306,25 +306,60 @@ public class ArrayListAlgorithms {
      */
     public static ArrayList<Integer> modes(int[] numList)
     {
-        ArrayList<Integer[]> set = new ArrayList<>();
-        ArrayList<Integer> copy = new ArrayList<>();
+        /*
+        method 1
+        sort list,
+        leave only one value of each number
+        insert the num of times it appeared after it
+        if every other number is the same, return empty list
+        If value of 4th value is greater than of 2nd value, remove the first two values
+        If second set is smaller, remove third and fourth values
+        When finished iterating through list, remove every other value
+         */
+        Arrays.sort(numList);
+        ArrayList<Integer> nums = new ArrayList<>();
         for (int num: numList){
-            copy.add(num);
+            nums.add(num);
         }
-
-
-        for (int i = 0; i < copy.size(); i ++){
-            int currentNum = copy.get(0);
-            int timesAppeared = 0;
-            int[] modeKey = new int[2];
-            modeKey[]
-            while (copy.contains(i)){
-                timesAppeared ++;
-                copy.remove(currentNum);
+        for (int i = 0; i < nums.size(); i ++){
+            int counter = 1;
+            while (i < nums.size() - 1 && nums.get(i) == nums.get(i + 1)){
+                counter ++;
+                nums.remove(i + 1);
             }
-           set.add()
-            i -= timesAppeared;
+            nums.add(i + 1, counter);
+            i++;
         }
+        int origLen = nums.size();
+        for (int i = 1; i < nums.size(); i += 2){
+            if (nums.get(i) > nums.get(i + 2)){
+                nums.remove(i + 1);
+                nums.remove(i + 1);
+                i -= 2;
+            } else if (nums.get(i) < nums.get(i + 2)){
+                nums.remove(i);
+                nums.remove(i - 1);
+                while (i - 2 > 0 && nums.get(i) > nums.get(i - 2)){
+                    nums.remove(i - 2);
+                    nums.remove(i - 3);
+                    i -= 2;//for the pair you remove each time
+                }
+                i -= 2; // for the "pair" removed initially
+            }
+            if (i + 2 >= nums.size() - 1){
+                break;
+            }
+        }
+        if (nums.size() == origLen){
+            return new ArrayList<Integer>();
+        }
+
+        for (int i = 1; i < nums.size(); i += 2){
+            nums.remove(i);
+            i --;
+        }
+
+        return nums;
 
     }
 
