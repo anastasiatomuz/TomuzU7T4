@@ -363,6 +363,83 @@ public class ArrayListAlgorithms {
 
     }
 
+    /*
+    This method should take an ArrayList of Student objects and sort the ArrayList by students' last names;
+    if multiple students have the same last name, sort those students by their first name.
+    If multiple students have the same first and last names, sort them by their GPA (higher GPA first).
+    The method should directly modify the ArrayList object being passed in.
+     */
+    public static void sortStudents(ArrayList<Student> studentsToSort){
+        //initially sort through the list by last name
+        for (int i = 1; i < studentsToSort.size(); i ++){
+            Student currentStudent = studentsToSort.get(i);
+            int possibleIdx = i;
+
+            while (possibleIdx > 0 && currentStudent.getLastName().compareTo(studentsToSort.get(possibleIdx - 1).getLastName()) < 0){
+                studentsToSort.set(possibleIdx, studentsToSort.get(possibleIdx - 1));
+                possibleIdx --;
+            }
+            studentsToSort.set(possibleIdx, currentStudent);
+        }
+
+        System.out.println(studentsToSort);
+        //check for duplicate last names
+        for (int i = 0; i < studentsToSort.size() - 1; i ++){
+            //find index of the last student with repeating last name
+            int indRepeatedLast = i;
+            while (indRepeatedLast < studentsToSort.size() - 1 && studentsToSort.get(indRepeatedLast).getLastName().equals(studentsToSort.get(indRepeatedLast + 1).getLastName())){
+                indRepeatedLast ++;
+            }
+            //sort (insertion) through the students with the same last name by first name
+            for (int j = i; j <= indRepeatedLast; j ++){
+                Student currentStudent = studentsToSort.get(j);
+                int possibleIdx = j;
+
+                while (possibleIdx > i && currentStudent.getFirstName().compareTo(studentsToSort.get(possibleIdx - 1).getFirstName()) < 0){
+                    studentsToSort.set(possibleIdx, studentsToSort.get(possibleIdx - 1));
+                    possibleIdx --;
+                }
+                studentsToSort.set(possibleIdx, currentStudent);
+            }
+
+            //
+            //skip to the next student with a different last name
+            i = indRepeatedLast;
+        }
+
+        //organize by gpa for same first name
+        for (int i = 0; i < studentsToSort.size() - 1; i ++){
+            Student stu1 = studentsToSort.get(i);
+            Student stu2 = studentsToSort.get(i +1);
+            if (stu1.getFirstName().equals(stu2.getFirstName())){
+                if (stu1.getGpa() < stu2.getGpa()){
+                    studentsToSort.set(i, stu2);
+                    studentsToSort.set(i + 1 , stu1);
+                }
+            }
+        }
+
+    }
 
 
 }
+/*
+            Student student1 = studentsToSort.get(i);
+            Student student2 = studentsToSort.get(i + 1);
+            if (student1.getLastName().equals(student2.getLastName())){ //last names are the same
+                //student1's first name is to go after student2
+                if (student1.getFirstName().compareTo(student2.getFirstName()) > 0){
+                    studentsToSort.set(i, student2);
+                    studentsToSort.set(i + 1, student1);
+                }
+                System.out.println("student1: " + student1.getFirstName() + student2.getFirstName());
+                //names are the same, check by gpa
+                if (student1.getFirstName().equals(student2.getFirstName())){
+
+                    if (student1.getGpa() < student2.getGpa()){
+                        studentsToSort.set(i, student2);
+                        studentsToSort.set(i + 1 , student1);
+                    }
+                }
+            }
+            */
